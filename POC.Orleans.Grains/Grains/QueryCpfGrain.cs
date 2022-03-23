@@ -19,6 +19,11 @@ namespace POC.Orleans.Grains.Grains
             _contextDapper = contextDapper;
         }
 
+        /// <summary>
+        /// Retorna a pessoa vinculada ao número de CPF informado
+        /// </summary>
+        /// <param name="cpf">Numero do CPF a ser pesquisado no banco</param>
+        /// <returns>Retorna a pessoa vinculada ao CPF informado</returns>
         public Task<Person> QueryByCpfAsync(string cpf)
         {
             var sql = @"DECLARE @json AS NVARCHAR(MAX);

@@ -8,7 +8,6 @@ using Orleans.Hosting;
 using POC.Orleans.Infra.Configs;
 using POC.Orleans.Infra.Contexts;
 using System;
-using System.IO;
 using System.Net;
 using System.Runtime.Loader;
 using System.Threading;
@@ -16,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace POC.Orleans.Silo
 {
+    /// <summary>
+    /// Classe de configuração do Silo
+    /// </summary>
     class Program
     {
         private static readonly Func<IServiceProvider, DapperContext> repoFactoryDapper = (_) =>
@@ -55,7 +57,6 @@ namespace POC.Orleans.Silo
                 .ConfigureApplicationParts(parts => parts.AddFromApplicationBaseDirectory())
                 .ConfigureLogging(logging => logging.AddConsole())
                 .UseDashboard(options => {
-                    options.Port = 8080 + new Random().Next(1);
                 })
                 .ConfigureServices(option =>
                 {

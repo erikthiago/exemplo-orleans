@@ -23,6 +23,11 @@ namespace POC.Orleans.Grains.Grains
 
         // Link de referencia para usar o sql e pegar o json do banco do orleans: https://docs.microsoft.com/pt-br/sql/relational-databases/json/json-data-sql-server?view=sql-server-ver15
         // Link de referencia para concatenar os dados do banco em uma linha: https://pt.stackoverflow.com/questions/203992/como-concatenar-linhas
+        /// <summary>
+        /// Método que faz a pesquisa no banco para encontrar pessoas com a idade informada. Idade informada ou abaixo.
+        /// </summary>
+        /// <param name="minimumAge">Idade informada</param>
+        /// <returns>Retorna a lista de pessoas com a idade informada</returns>
         public Task<IEnumerable<Person>> QueryByMinimumAsync(int minimumAge)
         {
             var age = DateTime.Now.AddYears(-minimumAge);

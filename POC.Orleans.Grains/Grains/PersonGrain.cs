@@ -22,6 +22,11 @@ namespace POC.Orleans.Grains.Grains
             _contextDapper = contextDapper;
         }
 
+        /// <summary>
+        /// Adiciona uma nova pessoa ao estado do Orleans para salvar no banco e na memória
+        /// </summary>
+        /// <param name="person">O objeto da pessoa com os dados</param>
+        /// <returns>Retorna uma Task</returns>
         public async Task AddNewPersonAsync(Person person)
         {
             State.Address = person.Address;
@@ -32,6 +37,10 @@ namespace POC.Orleans.Grains.Grains
             await WriteStateAsync();
         }
 
+        /// <summary>
+        /// Faz a busca no banco de dados para trazer a lista de todas as pessoas existentes no banco
+        /// </summary>
+        /// <returns>Retorna uma lista de todas as pessoas existentes no banco de dados</returns>
         public Task<IEnumerable<Person>> GetAllPersonAsync()
         {
             var sql = @"DECLARE @json AS NVARCHAR(MAX);
@@ -51,6 +60,10 @@ namespace POC.Orleans.Grains.Grains
             return Task.FromResult(_contextDapper.Connection.Query<Person>(sql));
         }
 
+        /// <summary>
+        /// Busca a pessoa pela identificação única informada (Guid)
+        /// </summary>
+        /// <returns>Retorna a pessoa vinculada a esssa identificação unica</returns>
         public Task<Person> GetPersonAsync()
         {
             return Task.FromResult(new Person()
@@ -62,6 +75,11 @@ namespace POC.Orleans.Grains.Grains
             });
         }
 
+        /// <summary>
+        /// Altera os dados da pessoa a partir da identificação
+        /// </summary>
+        /// <param name="person">Objeto com os dados para serem alterados</param>
+        /// <returns>Retorna uma Task</returns>
         public async Task UpdatePersonAsync(Person person)
         {
             State.Address = person.Address;
